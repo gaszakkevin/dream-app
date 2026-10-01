@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>What Should I Dream About?</title>
+  <meta name="description" content="Tap the moon for tonight's dream: a character, a place, and a quest.">
+  <meta name="theme-color" content="#0A0912">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Dream About">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="sky"></canvas>
+  <div class="veilwash"></div>
+
+  <main class="stage">
+    <div class="bar">
+      <p class="wordmark">What Should I Dream About?</p>
+      <button class="shelfbtn" id="openShelf" type="button">Dream shelf <b id="shelfCount">0</b></button>
+    </div>
+
+    <div class="dream" aria-live="polite">
+      <p class="ask" id="ask">Tonight</p>
+      <p class="line" id="line"></p>
+      <div class="who-row" id="whoRow">
+        <div class="emblem" aria-hidden="true"></div>
+        <div class="who-meta">
+          <span class="id" id="whoId">DRM-000</span>
+          <span class="ty" id="whoTy">&nbsp;</span>
+        </div>
+        <span class="wild" id="wildTag" hidden>wild pairing</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="moon" id="moon" type="button" aria-label="Roll a new dream"><span>again</span></button>
+
+      <div class="subrow">
+        <button class="act" id="keep" type="button">Keep this dream</button>
+        <button class="act" id="share" type="button">Share</button>
+      </div>
+
+      <div class="subrow">
+        <div class="toggle" role="group" aria-label="Pairing style">
+          <button type="button" id="mKin" aria-pressed="true">Kindred</button>
+          <button type="button" id="mAny" aria-pressed="false">Anything goes</button>
+        </div>
+      </div>
+
+      <label class="tune" id="tune">
+        <span>Kindred pull</span>
+        <input type="range" id="bias" min="0" max="100" step="5" value="60">
+        <b id="biasVal">60%</b>
+      </label>
+
+      <p class="count" id="count">1 of 11,520 dreams</p>
+    </div>
+  </main>
+
+  <div class="scrim" id="scrim"></div>
+  <div class="shelf" id="shelf" role="dialog" aria-modal="true" aria-label="Dream shelf">
+    <div class="shelf-in">
+      <h2><span>Kept dreams</span><button type="button" id="closeShelf">Close</button></h2>
+      <ul class="saved" id="savedList"></ul>
+      <p class="empty" id="emptyMsg" hidden>Nothing kept yet. Roll a dream you like and press Keep.</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
