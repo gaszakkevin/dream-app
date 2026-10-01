@@ -1,0 +1,7 @@
+# Cloudflare Pages headers. Keep the service worker and grammar fresh so updates reach installed phones.
+/sw.js
+  Cache-Control: no-cache
+/data/grammar.json
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Content-Type: application/manifest+json

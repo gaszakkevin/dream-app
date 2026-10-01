@@ -9,7 +9,13 @@ Mobile-first PWA. Tap the moon to roll "Tonight, dream about [character], [place
     open http://localhost:5173
 
 On a phone on the same Wi-Fi, open http://<your-computer-ip>:5173. Installing to the home screen
-and offline use need HTTPS (any static host such as Netlify, Vercel, Cloudflare Pages or GitHub Pages).
+and offline use need HTTPS, so use the hosted copy for that.
+
+## Hosting (Cloudflare Pages)
+
+Connect this repo in Cloudflare Pages with framework preset **None**, build command **empty**, and
+output directory **/** . Every push to `main` redeploys. `_headers` keeps `sw.js` and the grammar
+uncached so content edits reach installed phones.
 
     node test.js          # grammar and engine checks
 
