@@ -1,0 +1,10 @@
+{
+  "name": "what-should-i-dream-about",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mobile-first PWA: tap the moon to roll tonight's dream.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js"
+  }
+}
