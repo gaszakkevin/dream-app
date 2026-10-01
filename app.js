@@ -6,7 +6,7 @@
   var root = document.documentElement;
   var line = $("line"), ask = $("ask"), whoRow = $("whoRow");
   var whoId = $("whoId"), whoTy = $("whoTy"), wildTag = $("wildTag");
-  var moon = $("moon"), keepBtn = $("keep"), shareBtn = $("share"), countEl = $("count");
+  var moon = $("moon"), keepBtn = $("keep"), shareBtn = $("share"), watchBtn = $("watch"), countEl = $("count");
   var biasInput = $("bias"), biasVal = $("biasVal"), tune = $("tune");
 
   var SHELF_KEY = "wsida_shelf_v1", PREF_KEY = "wsida_prefs_v1";
@@ -82,6 +82,8 @@
       whoId.textContent = d.character.id;
       whoTy.textContent = d.character.type + " · " + d.character.realms.join(" / ");
       wildTag.hidden = !d.wild;
+      watchBtn.textContent = "Watch " + d.character.name.split(" ")[0];
+      watchBtn.hidden = !d.character.watch;
 
       seen++;
       countEl.textContent = seen.toLocaleString() + " of " + engine.total.toLocaleString() + " dreams";
@@ -158,6 +160,60 @@
       }
     }
 
+    // ---- parent gate: hold 3s, then a real link the grown-up taps --------
+    var HOLD_MS = 3000, holdStart = 0, holdRaf = 0;
+    var gate = $("gate"), gateScrim = $("gateScrim"), hold = $("hold"), holdFill = $("holdFill"), holdLbl = $("holdLbl"), gateGo = $("gateGo");
+
+    function openGate() {
+      if (!current || !current.character.watch) return;
+      gateGo.href = current.character.watch;
+      gateGo.textContent = "Open " + current.character.name.split(" ")[0] + " on YouTube";
+      resetHold();
+      hold.hidden = false; gateGo.hidden = true;
+      $("gateMsg").textContent = "Press and hold the button for 3 seconds to continue.";
+      gate.hidden = false; gateScrim.classList.add("on");
+      hold.focus();
+    }
+    function closeGate() {
+      cancelHold();
+      gate.hidden = true; gateScrim.classList.remove("on");
+      watchBtn.focus();
+    }
+    function resetHold() { holdFill.style.transform = "scaleX(0)"; holdLbl.textContent = "Hold to continue"; }
+    function tick() {
+      var p = Math.min(1, (performance.now() - holdStart) / HOLD_MS);
+      holdFill.style.transform = "scaleX(" + p + ")";
+      if (p >= 1) {
+        holdStart = 0;
+        hold.hidden = true; gateGo.hidden = false;
+        $("gateMsg").textContent = "Thanks. Tap below to open the video in a new tab.";
+        gateGo.focus();
+        return;
+      }
+      holdRaf = requestAnimationFrame(tick);
+    }
+    function startHold(e) {
+      if (e) e.preventDefault();
+      if (holdStart) return;
+      holdStart = performance.now();
+      holdLbl.textContent = "Keep holding\u2026";
+      holdRaf = requestAnimationFrame(tick);
+    }
+    function cancelHold() {
+      if (!holdStart) return;
+      holdStart = 0;
+      cancelAnimationFrame(holdRaf);
+      resetHold();
+    }
+    hold.addEventListener("pointerdown", startHold);
+    ["pointerup", "pointerleave", "pointercancel"].forEach(function (ev) { hold.addEventListener(ev, cancelHold); });
+    hold.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+    hold.addEventListener("keydown", function (e) { if ((e.key === " " || e.key === "Enter") && !e.repeat) startHold(e); });
+    hold.addEventListener("keyup", function (e) { if (e.key === " " || e.key === "Enter") cancelHold(); });
+    gateGo.addEventListener("click", function () { setTimeout(closeGate, 0); });
+    $("gateClose").addEventListener("click", closeGate);
+    gateScrim.addEventListener("click", closeGate);
+
     // ---- shelf ---------------------------------------------------------
     function keep() {
       if (!current) return;
@@ -211,6 +267,7 @@
     moon.addEventListener("click", go);
     keepBtn.addEventListener("click", keep);
     shareBtn.addEventListener("click", share);
+    watchBtn.addEventListener("click", openGate);
     $("mKin").addEventListener("click", function () { kindred = true; paintMode(); savePrefs(); });
     $("mAny").addEventListener("click", function () { kindred = false; paintMode(); savePrefs(); });
     biasInput.addEventListener("input", function () { bias = biasInput.value / 100; paintBias(); savePrefs(); });
@@ -218,8 +275,8 @@
     $("closeShelf").addEventListener("click", function () { openShelf(false); });
     $("scrim").addEventListener("click", function () { openShelf(false); });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") openShelf(false);
-      if (e.key === " " && document.activeElement === document.body) { e.preventDefault(); go(); }
+      if (e.key === "Escape") { openShelf(false); if (!gate.hidden) closeGate(); }
+      if (e.key === " " && document.activeElement === document.body && gate.hidden) { e.preventDefault(); go(); }
     });
 
     renderShelf();

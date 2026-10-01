@@ -46,6 +46,7 @@
       <div class="subrow">
         <button class="act" id="keep" type="button">Keep this dream</button>
         <button class="act" id="share" type="button">Share</button>
+        <button class="act" id="watch" type="button">Watch</button>
       </div>
 
       <div class="subrow">
@@ -72,6 +73,16 @@
       <ul class="saved" id="savedList"></ul>
       <p class="empty" id="emptyMsg" hidden>Nothing kept yet. Roll a dream you like and press Keep.</p>
     </div>
+  </div>
+
+  <div class="scrim" id="gateScrim"></div>
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle" hidden>
+    <p class="gate-k">For grown-ups</p>
+    <h2 id="gateTitle">This opens YouTube</h2>
+    <p class="gate-p" id="gateMsg">Press and hold the button for 3 seconds to continue.</p>
+    <button class="hold" id="hold" type="button"><span class="fill" id="holdFill"></span><span class="lbl" id="holdLbl">Hold to continue</span></button>
+    <a class="go" id="gateGo" href="#" target="_blank" rel="noopener noreferrer" hidden>Open on YouTube</a>
+    <button class="gate-x" id="gateClose" type="button">Not now</button>
   </div>
 
   <div class="toast" id="toast" role="status"></div>

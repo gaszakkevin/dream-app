@@ -10,6 +10,7 @@ assert.strictEqual(G.quests.length, 60, "60 quests");
 const realms = new Set(G.places.map(p => p.realm));
 for (const c of G.characters) {
   assert.strictEqual(c.palette.length, 4, c.id + " has 4 palette colours");
+  assert.ok(/^https:\/\/(youtu\.be\/|www\.youtube\.com\/)/.test(c.watch || ""), c.id + " has a YouTube watch link");
   for (const r of c.realms) assert.ok(realms.has(r), c.id + " realm " + r + " has at least one place");
 }
 
