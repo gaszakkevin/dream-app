@@ -1,7 +1,7 @@
 # What Should I Dream About?
 
 Mobile-first PWA. Tap the moon to roll "Tonight, dream about [character], [place], [quest]" from
-20 characters x 24 places x 24 quests (11,520 dreams). No build step and no dependencies.
+20 characters x 24 places x 60 quests (28,800 dreams). No build step and no dependencies.
 
 ## Run it
 

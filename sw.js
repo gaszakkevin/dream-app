@@ -1,5 +1,5 @@
 /* Offline cache. Bump VERSION whenever any app file or grammar.json changes. */
-var VERSION = "dream-v2";
+var VERSION = "dream-v3";
 var CORE = [
   "./", "index.html", "styles.css", "engine.js", "app.js",
   "data/grammar.json", "manifest.webmanifest",
