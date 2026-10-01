@@ -184,6 +184,29 @@ body {
 .saved .x:hover { color: var(--ink); }
 .empty { color: var(--ink-3); font-size: 13.5px; margin: 0; }
 
+/* ---------- parent gate ---------- */
+.gate {
+  position: fixed; z-index: 7; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: min(340px, calc(100vw - 32px));
+  background: #12101E; border: 1px solid var(--edge-2); border-radius: 18px;
+  padding: 24px 22px 18px; text-align: center;
+}
+.gate-k { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--c3); margin: 0 0 8px; }
+.gate h2 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: 24px; margin: 0 0 8px; }
+.gate-p { color: var(--ink-2); font-size: 13.5px; line-height: 1.5; margin: 0 0 18px; }
+.hold, .go {
+  position: relative; overflow: hidden; display: block; width: 100%;
+  font: inherit; font-size: 14px; font-weight: 600; color: var(--ink);
+  background: var(--veil); border: 1px solid var(--edge-2); border-radius: 999px;
+  padding: 13px 16px; cursor: pointer; text-decoration: none;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none;
+}
+.hold .fill { position: absolute; inset: 0; background: var(--c3); opacity: .35; transform-origin: left; transform: scaleX(0); }
+.hold .lbl { position: relative; }
+.go { background: var(--c3); color: var(--ground); border-color: transparent; }
+.gate-x { font: inherit; font-size: 12.5px; color: var(--ink-3); background: none; border: 0; cursor: pointer; padding: 12px 8px 2px; }
+.gate-x:hover { color: var(--ink); }
+
 /* ---------- toast ---------- */
 .toast {
   position: fixed; z-index: 8; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px));
