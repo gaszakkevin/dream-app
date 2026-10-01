@@ -6,7 +6,7 @@ const { create } = require("./engine.js");
 // Grammar shape
 assert.strictEqual(G.characters.length, 20, "20 characters");
 assert.strictEqual(G.places.length, 24, "24 places");
-assert.strictEqual(G.quests.length, 24, "24 quests");
+assert.strictEqual(G.quests.length, 60, "60 quests");
 const realms = new Set(G.places.map(p => p.realm));
 for (const c of G.characters) {
   assert.strictEqual(c.palette.length, 4, c.id + " has 4 palette colours");
@@ -14,7 +14,7 @@ for (const c of G.characters) {
 }
 
 const e = create(G);
-assert.strictEqual(e.total, 11520);
+assert.strictEqual(e.total, 28800);
 
 // Opening dream matches the demo
 assert.strictEqual(e.build(4, 0, 0).text,
