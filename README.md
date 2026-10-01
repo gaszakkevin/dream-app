@@ -9,7 +9,15 @@ Mobile-first PWA. Tap the moon to roll "Tonight, dream about [character], [place
     open http://localhost:5173
 
 On a phone on the same Wi-Fi, open http://<your-computer-ip>:5173. Installing to the home screen
-and offline use need HTTPS (any static host such as Netlify, Vercel, Cloudflare Pages or GitHub Pages).
+and offline use need HTTPS, so use the hosted copy for that.
+
+## Hosting (GitHub Pages)
+
+Live at https://gaszakkevin.github.io/dream-app/ once Pages is on: repo **Settings > Pages >
+Deploy from a branch > main / (root)**. Every push to `main` redeploys within a minute or two.
+All paths are relative, so the `/dream-app/` subpath works. GitHub Pages caches files for up to
+10 minutes and browsers always re-check `sw.js`, so content edits reach installed phones on their
+next open after that.
 
     node test.js          # grammar and engine checks
 
